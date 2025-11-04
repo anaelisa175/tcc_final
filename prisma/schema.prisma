@@ -1,0 +1,194 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// TABELAS CRÍTICAS PARA MVP
+// ============================================
+
+// 0. USUÁRIOS - Sistema de autenticação
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// 1. ARTIGOS - Coração do sistema
+model Artigo {
+  id                Int      @id @default(autoincrement())
+  titulo            String
+  slug              String   @unique
+  subtitulo         String?
+  descricao         String?
+  conteudo          String
+  componente        String   // Nome do componente React
+  imagemPrincipal   String?
+  imagemCapa        String?
+  categoria         String?
+  tags              String?  // JSON array de tags
+  autor             String   @default("BrainWave Connect")
+  dataPublicacao    DateTime @default(now())
+  dataAtualizacao   DateTime @updatedAt
+  visualizacoes     Int      @default(0)
+  destaque          Boolean  @default(false)
+  premium           Boolean  @default(false)
+  ativo             Boolean  @default(true)
+  
+  // Relacionamentos
+  quizzes           Quiz[]
+  
+  @@map("artigos")
+}
+
+// 2. CONTATOS - Captura de leads e feedback
+model Contato {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  email       String
+  mensagem    String
+  dataEnvio   DateTime @default(now())
+  status      StatusContato @default(PENDENTE)
+  resposta    String?
+  dataResposta DateTime?
+  
+  @@map("contatos")
+}
+
+enum StatusContato {
+  PENDENTE
+  LIDO
+  RESPONDIDO
+}
+
+// 3. FAQs - Perguntas Frequentes
+model FAQ {
+  id          Int      @id @default(autoincrement())
+  pergunta    String
+  resposta    String
+  ordem       Int      @default(0)
+  ativo       Boolean  @default(true)
+  categoria   String?
+  dataCriacao DateTime @default(now())
+  
+  @@map("faqs")
+}
+
+// 4. QUIZ - Sistema completo de quizzes
+model Quiz {
+  id          Int      @id @default(autoincrement())
+  artigoId    Int
+  titulo      String
+  descricao   String?
+  ativo       Boolean  @default(true)
+  dataCriacao DateTime @default(now())
+  dataAtualizacao DateTime @updatedAt
+  
+  // Relacionamentos
+  artigo      Artigo   @relation(fields: [artigoId], references: [id], onDelete: Cascade)
+  perguntas   QuizPergunta[]
+  tentativas  QuizTentativa[]
+  
+  @@map("quizzes")
+  @@index([artigoId])
+}
+
+// 5. PERGUNTAS DO QUIZ
+model QuizPergunta {
+  id          Int      @id @default(autoincrement())
+  quizId      Int
+  pergunta    String
+  ordem       Int      @default(0)
+  ativo       Boolean  @default(true)
+  
+  // Relacionamentos
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  opcoes      QuizOpcao[]
+  respostas   QuizResposta[]
+  
+  @@map("quiz_perguntas")
+  @@index([quizId])
+  @@index([ordem])
+}
+
+// 6. OPÇÕES DO QUIZ
+model QuizOpcao {
+  id          Int      @id @default(autoincrement())
+  perguntaId  Int
+  textoOpcao  String
+  correta     Boolean  @default(false)
+  ordem       Int      @default(0)
+  
+  // Relacionamentos
+  pergunta    QuizPergunta @relation(fields: [perguntaId], references: [id], onDelete: Cascade)
+  respostas   QuizResposta[]
+  
+  @@map("quiz_opcoes")
+  @@index([perguntaId])
+}
+
+// 7. TENTATIVAS DE QUIZ - Histórico de respostas
+model QuizTentativa {
+  id              Int      @id @default(autoincrement())
+  quizId          Int
+  sessionId       String?  // Para usuários não logados
+  pontuacao       Int      @default(0)
+  totalPerguntas  Int
+  tempoConclusao  Int?     // em segundos
+  completado      Boolean  @default(false)
+  dataTentativa   DateTime @default(now())
+  
+  // Relacionamentos
+  quiz            Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  respostas       QuizResposta[]
+  
+  @@map("quiz_tentativas")
+  @@index([quizId])
+  @@index([sessionId])
+  @@index([dataTentativa])
+}
+
+// 8. RESPOSTAS DO USUÁRIO
+model QuizResposta {
+  id          Int      @id @default(autoincrement())
+  tentativaId Int
+  perguntaId  Int
+  opcaoId     Int
+  correta     Boolean  @default(false)
+  dataResposta DateTime @default(now())
+  
+  // Relacionamentos
+  tentativa   QuizTentativa @relation(fields: [tentativaId], references: [id], onDelete: Cascade)
+  pergunta    QuizPergunta @relation(fields: [perguntaId], references: [id])
+  opcao       QuizOpcao @relation(fields: [opcaoId], references: [id])
+  
+  @@map("quiz_respostas")
+  @@index([tentativaId])
+  @@index([perguntaId])
+}
+
+// 9. HISTÓRICO DE BUSCAS - Analytics
+model BuscaHistorico {
+  id                   Int      @id @default(autoincrement())
+  termoBusca           String
+  resultadoEncontrado  Boolean  @default(true)
+  quantidadeResultados Int      @default(0)
+  dataBusca            DateTime @default(now())
+  
+  @@map("busca_historico")
+}

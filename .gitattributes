@@ -1,0 +1,29 @@
+# ============================================
+# AVISO: Este branch (migration-nextjs) deve permanecer
+# ISOLADO do branch main. NÃO fazer merge!
+# ============================================
+
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly declare text files
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.json text
+*.md text
+*.css text
+*.html text
+*.prisma text
+
+# Denote all files that are truly binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

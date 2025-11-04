@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Contact Section Styles
+   ========================================================================== */
+
+/* Container and Layout
+   ========================================================================== */
+.contact-section {
+    background: #f8f9fa; /* Fundo cinza claro */
+    padding: 50px 0 60px 0;
+    text-align: center;
+    margin-top: 0;
+    border-top: none;
+    position: relative;
+}
+
+.contact-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography
+   ========================================================================== */
+.contact-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #071D3B; /* Azul escuro */
+    margin-bottom: 10px;
+}
+
+.contact-section p {
+    color: #000000; /* Preto */
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* Form Container
+   ========================================================================== */
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 1160px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.contact-section form:focus-within {
+    box-shadow: 0 10px 25px rgba(7, 29, 59, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Form Layout
+   ========================================================================== */
+.contact-section .input-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.contact-section .input-row input {
+    flex: 1;
+    min-width: 0; /* Prevents inputs from breaking layout */
+}
+
+/* Form Elements
+   ========================================================================== */
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+    border: 1.5px solid #071D3B; /* Azul escuro - mesmo do título */
+    box-shadow: 0 3px 8px rgba(7, 29, 59, 0.15);
+}
+
+.contact-section textarea {
+    max-width: 700px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Button
+   ========================================================================== */
+.contact-section button {
+    background: #F6B600; /* Amarelo/Dourado */
+    color: #071D3B; /* Azul escuro */
+    border: none;
+    padding: 12px 40px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(246, 182, 0, 0.3);
+    margin-top: 20px;
+    width: auto;
+    align-self: center;
+}
+
+.contact-section button:hover {
+    background: #F6B600; /* Amarelo/Dourado */
+    color: #071D3B; /* Azul escuro */
+    box-shadow: 0 4px 12px rgba(246, 182, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Feedback Message
+   ========================================================================== */
+.mensagem-enviada {
+    color: #071D3B; /* Azul escuro - mesmo do título */
+    margin-top: 10px;
+    font-size: 1rem;
+    display: block;
+    font-weight: 600;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries
+   ========================================================================== */
+@media (max-width: 768px) {
+    .contact-section .input-row {
+        flex-direction: column;
+        gap: 14px;
+    }
+    
+    .contact-section h2 {
+        font-size: 2rem;
+    }
+    
+    .contact-section form {
+        padding: 20px;
+    }
+}

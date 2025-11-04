@@ -1,0 +1,122 @@
+.quiz-question {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin: 30px 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.quiz-question.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quiz-question h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background-color: #f0f0f0;
+  border-color: #d0d0d0;
+}
+
+.quiz-option.correct {
+  background-color: rgba(76, 175, 80, 0.15);
+  border-color: #4CAF50;
+}
+
+.quiz-option.incorrect {
+  background-color: rgba(244, 67, 54, 0.15);
+  border-color: #F44336;
+}
+
+.option-letter {
+  font-weight: 600;
+  margin-right: 10px;
+  color: #555;
+}
+
+.question-indicator {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.quiz-result {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  margin: 30px 0;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quiz-result h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.result-text {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+.result-text span {
+  font-weight: 700;
+  color: #333;
+}
+
+.try-again {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.try-again:hover {
+  background-color: #333;
+}
