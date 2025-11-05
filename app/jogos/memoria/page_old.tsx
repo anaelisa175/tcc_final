@@ -228,50 +228,49 @@ export default function MemoryGame() {
             ))}
           </div>
 
-          {/* Botões de Ação */}
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={resetGame}
-              className="px-6 py-2 bg-yellow-500 text-blue-900 rounded-lg font-bold hover:bg-yellow-400 transition-colors"
-            >
-              Reiniciar Jogo
-            </button>
-            <Link
-              href="/jogos"
-              className="px-6 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-400 transition-colors"
-            >
-              Voltar aos Jogos
-            </Link>
-          </div>
+        {/* Botões de Ação */}
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={resetGame}
+            className="px-6 py-2 bg-yellow-500 text-blue-900 rounded-lg font-bold hover:bg-yellow-400 transition-colors"
+          >
+            Reiniciar Jogo
+          </button>
+          <Link
+            href="/jogos"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-400 transition-colors"
+          >
+            Voltar aos Jogos
+          </Link>
+        </div>
 
-          {/* Mensagem de Vitória */}
-          {matches === emotionsData[difficulty].length && (
-            <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-              <div className="bg-white p-8 rounded-xl text-center max-w-md mx-4">
-                <h2 className="text-2xl font-bold text-blue-900 mb-4">
-                  Parabéns! 🎉
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Você completou o jogo em {moves} movimentos!
-                </p>
-                <div className="flex gap-4 justify-center">
-                  <button
-                    onClick={resetGame}
-                    className="px-6 py-2 bg-yellow-500 text-blue-900 rounded-lg font-bold hover:bg-yellow-400 transition-colors"
-                  >
-                    Jogar Novamente
-                  </button>
-                  <Link
-                    href="/jogos"
-                    className="px-6 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-400 transition-colors"
-                  >
-                    Outros Jogos
-                  </Link>
-                </div>
+        {/* Mensagem de Vitória */}
+        {matches === emotionsData[difficulty].length && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+            <div className="bg-white p-8 rounded-xl text-center max-w-md mx-4">
+              <h2 className="text-2xl font-bold text-blue-900 mb-4">
+                Parabéns! 🎉
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Você completou o jogo em {moves} movimentos!
+              </p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={resetGame}
+                  className="px-6 py-2 bg-yellow-500 text-blue-900 rounded-lg font-bold hover:bg-yellow-400 transition-colors"
+                >
+                  Jogar Novamente
+                </button>
+                <Link
+                  href="/jogos"
+                  className="px-6 py-2 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-400 transition-colors"
+                >
+                  Outros Jogos
+                </Link>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </main>
 
       <Footer />
